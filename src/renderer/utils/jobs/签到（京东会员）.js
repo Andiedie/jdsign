@@ -5,7 +5,13 @@ export default async () => {
   const jobName = '签到（京东会员）';
   const logs = [];
   const { data: checkSignData } = await ax.post('https://vip.m.jd.com/score/home.html');
-  const hasSigned = _.takeWhile(checkSignData.result.floorInfoList, { code: 'M_USER_INFO' })[0].dataDetail.signType.code === 101;
+  let hasSigned = true;
+  for (const floor of checkSignData.result.floorInfoList) {
+    if (floor.code === 'M_USER_INFO') {
+      hasSigned = floor.dataDetail.signType.code === 101;
+      break;
+    }
+  }
   if (hasSigned) {
     logs.push(`${new Date()} [${jobName}] 已经签到，跳过任务`);
     return {logs};
