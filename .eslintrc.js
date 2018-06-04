@@ -16,6 +16,7 @@ module.exports = {
     'html'
   ],
   'rules': {
+    'semi': ['error', 'always'],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await

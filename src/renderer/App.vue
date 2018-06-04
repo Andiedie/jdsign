@@ -1,20 +1,30 @@
 <template>
   <div id="app">
-    <landing-page></landing-page>
+    <index></index>
   </div>
 </template>
 
 <script>
-  import LandingPage from '@/components/LandingPage'
+import Index from '@/components/Index/Index.vue';
 
-  export default {
-    name: 'jdsign',
-    components: {
-      LandingPage
-    }
+export default {
+  name: 'jdsign',
+  components: {
+    Index
   }
+};
 </script>
 
 <style>
-  /* CSS */
+html, body{
+  margin: 0;
+  border: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+#app {
+  height: 100%;
+  width: 100%;
+}
 </style>

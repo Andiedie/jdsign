@@ -53,8 +53,10 @@
     }
   },
   "dependencies": {
-    "vue": "^2.3.3",
     "axios": "^0.16.1",
+    "lodash": "^4.17.10",
+    "parse-jsonp": "^1.0.0",
+    "vue": "^2.3.3",
     "vue-electron": "^1.0.6"
   },
   "devDependencies": {
