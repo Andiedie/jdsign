@@ -21,10 +21,24 @@ export default async () => {
     }
   });
   const signAward = Number(signData.data.signShowBean.signAward);
+  const existAward = Number(_.get(signData, 'data.signShowBean.signTopReward.existAward', 0));
   if (!hasSigned) {
     logs.push(`[${jobName}] 签到获得${signAward}京豆`);
+    if (existAward) {
+      logs.push(`[${jobName}] 连续签到，额外获得${existAward}京豆`);
+      logs.push(`[${jobName}] 连续签到，无法翻牌`);
+      return {
+        jd: signAward + existAward,
+        logs
+      };
+    }
   }
+
   const hasPickCard = signData.data.signShowBean.complated === 1;
+  if (existAward) {
+    logs.push(`[${jobName}] 连续签到，无法翻牌`);
+    return {logs};
+  }
   if (hasPickCard) {
     logs.push(`[${jobName}] 已经翻牌，跳过任务`);
     return {logs};
@@ -40,7 +54,7 @@ export default async () => {
   const cardAward = Number(pickData.data.signAward) - signAward;
   logs.push(`[${jobName}] 翻牌获得${cardAward}京豆`);
   return {
-    jd: cardAward + signAward,
+    jd: signAward + existAward + cardAward,
     logs
   };
 };
