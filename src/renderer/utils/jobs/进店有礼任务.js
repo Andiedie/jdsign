@@ -8,7 +8,7 @@ export default async () => {
   const award = taskList.reduce((pre, cur) => pre + Number(cur.awardCount), 0);
   const taskIds = taskList.map(value => value.taskId);
   if (taskIds.length === 0) {
-    logs.push(`${new Date()} [${jobName}] 全部任务已经完成`);
+    logs.push(`[${jobName}] 全部任务已经完成`);
     return {logs};
   }
   for (const id of taskIds) {
@@ -18,7 +18,7 @@ export default async () => {
       }
     });
   }
-  logs.push(`${new Date()} [${jobName}] 完成${taskIds.length}个任务，获得${award}京豆`);
+  logs.push(`[${jobName}] 完成${taskIds.length}个任务，获得${award}京豆`);
   return {
     jd: award,
     logs

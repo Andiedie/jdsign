@@ -13,15 +13,13 @@ ax.interceptors.response.use(response => {
 });
 
 ax.getCookie = () => {
-  ax.defaults.headers['Cookie'] = localStorage.getItem('cookie');
-  const rawCookie = localStorage.getItem('cookie');
+  const rawCookie = ax.defaults.headers['Cookie'];
   return qs.parse(rawCookie, ';', '=', {decodeURIComponent: v => v});
 };
 
 ax.setCookie = (cookie) => {
   const rawCookie = qs.stringify(cookie, ';', '=', {encodeURIComponent: v => v});
   ax.defaults.headers['Cookie'] = rawCookie;
-  localStorage.setItem('cookie', rawCookie);
 };
 
 ax.parseJsonp = parseJsonp;

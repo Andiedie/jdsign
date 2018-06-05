@@ -12,7 +12,7 @@ export default async () => {
   });
   const hasSigned = checkSignData.data.status === '2';
   if (hasSigned) {
-    logs.push(`${new Date()} [${jobName}] 已经签到，跳过任务`);
+    logs.push(`[${jobName}] 已经签到，跳过任务`);
   }
   const { data: signData } = await ax.get('https://api.m.jd.com/client.action', {
     params: {
@@ -22,11 +22,11 @@ export default async () => {
   });
   const signAward = Number(signData.data.signShowBean.signAward);
   if (!hasSigned) {
-    logs.push(`${new Date()} [${jobName}] 签到获得${signAward}京豆`);
+    logs.push(`[${jobName}] 签到获得${signAward}京豆`);
   }
   const hasPickCard = signData.data.signShowBean.complated === 1;
   if (hasPickCard) {
-    logs.push(`${new Date()} [${jobName}] 已经翻牌，跳过任务`);
+    logs.push(`[${jobName}] 已经翻牌，跳过任务`);
     return {logs};
   }
   const randomPick = _.random(1, signData.data.signShowBean.awardList.length);
@@ -38,7 +38,7 @@ export default async () => {
     }
   });
   const cardAward = Number(pickData.data.signAward) - signAward;
-  logs.push(`${new Date()} [${jobName}] 翻牌获得${cardAward}京豆`);
+  logs.push(`[${jobName}] 翻牌获得${cardAward}京豆`);
   return {
     jd: cardAward + signAward,
     logs

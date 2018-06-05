@@ -13,12 +13,12 @@ export default async () => {
     }
   }
   if (hasSigned) {
-    logs.push(`${new Date()} [${jobName}] 已经签到，跳过任务`);
+    logs.push(`[${jobName}] 已经签到，跳过任务`);
     return {logs};
   }
   const { data: signData } = await ax.get('https://vip.m.jd.com/scoreSign/getPage.html');
   const award = Number(_.takeWhile(signData.result.floorInfoList, { code: 'M_SIGN_INFO' })[0].dataDetail.jdnum);
-  logs.push(`${new Date()} [${jobName}] 获得${award}京豆`);
+  logs.push(`[${jobName}] 获得${award}京豆`);
   return {
     jd: award,
     logs

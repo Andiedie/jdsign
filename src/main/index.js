@@ -1,6 +1,6 @@
 'use strict';
 
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, Menu } from 'electron';
 
 /**
  * Set `__static` path to static files in production
@@ -24,7 +24,7 @@ function createWindow () {
     width: 450,
     resizable: false
   });
-  mainWindow.setMenu(null);
+  Menu.setApplicationMenu(null);
 
   mainWindow.loadURL(winURL);
 

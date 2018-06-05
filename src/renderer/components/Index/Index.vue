@@ -6,7 +6,7 @@
     </div>
 
     <div class="button-wrapper">
-      <div :disabled="running" @click="sign" class="start">{{user.isLogin ? '开始签到' : '登录并签到'}}</div>
+      <div :disabled="running" @click="sign" class="start">{{user.isLogin ? '开始签到' : '登录'}}</div>
     </div>
 
     <div class="log-wrapper">
@@ -24,7 +24,8 @@
 import login from '@/utils/login.js';
 import electron from 'electron';
 import jobs from '@/utils/jobs';
-const {remote: {dialog, session}} = electron;
+const {remote} = electron;
+const {dialog, session, Menu, MenuItem, app} = remote;
 
 export default {
   data () {
@@ -39,6 +40,29 @@ export default {
     };
   },
   methods: {
+    createMenu () {
+      const menu = new Menu();
+      menu.append(new MenuItem({
+        label: '退出登录',
+        click: () => {
+          this.logout();
+        }
+      }));
+      menu.append(new MenuItem({
+        label: '打开控制台',
+        click: () => {
+          remote.getCurrentWebContents().openDevTools();
+        }
+      }));
+      menu.append(new MenuItem({
+        label: `Version: ${app.getVersion()}`,
+        enabled: false
+      }));
+      window.addEventListener('contextmenu', e => {
+        e.preventDefault();
+        menu.popup(remote.getCurrentWindow());
+      });
+    },
     async logout () {
       session.defaultSession.clearStorageData();
       this.user = {
@@ -47,25 +71,35 @@ export default {
         isLogin: false
       };
     },
-    async sign () {
-      if (this.running) return;
-      this.running = true;
-      if (!this.user.isLogin) {
-        let cookies;
-        try {
-          cookies = await new Promise((resolve, reject) => {
-            login(['pt_key', 'pt_pin', 'sid'], (error, cookies) => {
-              if (error) reject(error);
-              else resolve(cookies);
-            });
+    async login () {
+      let cookies;
+      try {
+        cookies = await new Promise((resolve, reject) => {
+          login(['pt_key', 'pt_pin', 'sid'], (error, cookies) => {
+            if (error) reject(error);
+            else resolve(cookies);
           });
-        } catch (err) {
-          return dialog.showErrorBox('获取Cookie时出错', err.message);
-        }
-        this.$http.setCookie(cookies);
-        await this.updateUserInfo();
+        });
+      } catch (err) {
+        throw err;
       }
       console.log('cookies', this.$http.getCookie());
+      this.$http.setCookie(cookies);
+      await this.updateUserInfo();
+    },
+    async sign () {
+      if (this.running) return;
+      if (!this.user.isLogin) {
+        try {
+          await this.login();
+        } catch (err) {
+          if (err.message !== 'Not login') {
+            return dialog.showErrorBox('登录时出错', err.message);
+          }
+        }
+        return;
+      }
+      this.running = true;
       const total = {
         jd: 0,
         coin: 0,
@@ -73,7 +107,13 @@ export default {
         flow: 0
       };
       for (const { default: job } of jobs) {
-        const income = await job();
+        let income;
+        try {
+          income = await job();
+        } catch (err) {
+          this.logs.push(`[错误] ${err.message}`);
+          continue;
+        }
         total.jd += income.jd || 0;
         total.coin += income.coin || 0;
         total.cash += income.cash || 0;
@@ -81,7 +121,7 @@ export default {
         this.logs = this.logs.concat(income.logs);
         await new Promise(resolve => setTimeout(resolve, 200));
       }
-      this.logs.push(`${new Date()} [总收入] ${total.jd}京豆 ${total.coin}钢镚 ${total.cash}现金 ${total.flow}M流量`);
+      this.logs.push(`[总收入] ${total.jd}京豆 ${total.coin}钢镚 ${total.cash}现金 ${total.flow}M流量`);
       this.running = false;
     },
     async updateUserInfo () {
@@ -102,8 +142,13 @@ export default {
       }
     }
   },
-  mounted () {
-    this.updateUserInfo();
+  async mounted () {
+    this.createMenu();
+    try {
+      await this.login();
+    } catch (err) {
+      console.log(err);
+    }
   }
 };
 </script>

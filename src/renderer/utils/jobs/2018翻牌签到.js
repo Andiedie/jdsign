@@ -13,9 +13,13 @@ export default async () => {
     }
   });
   checkData = jsonp('hook', checkData)[0];
+  if (checkData.data.result !== 0) {
+    logs.push(`[${jobName}] SID过期`);
+    return {logs};
+  }
   const signable = checkData.data.today === 0;
   if (!signable) {
-    logs.push(`${new Date()} [${jobName}] 已经翻牌，跳过任务`);
+    logs.push(`[${jobName}] 已经翻牌，跳过任务`);
     return {logs};
   }
   let { data: signData } = await ax.get('https://gpm.jd.com/signin/choice', {
@@ -28,11 +32,11 @@ export default async () => {
   });
   signData = jsonp('hook', signData)[0];
   if (signData.data.result !== 0) {
-    logs.push(`${new Date()} [${jobName}] 未知错误`);
+    logs.push(`[${jobName}] 未知错误`);
     return {logs};
   }
   const award = signData.data.neworder[0];
-  logs.push(`${new Date()} [${jobName}] 获得${award}钢镚`);
+  logs.push(`[${jobName}] 获得${award}钢镚`);
   return {
     coin: award,
     logs

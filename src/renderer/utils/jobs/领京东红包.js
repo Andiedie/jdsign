@@ -14,7 +14,7 @@ export default async () => {
   const pullable = checkData.resultData.code === '0_can_openRed';
   const pickable = !(_.get(checkData, 'resultData.data.isRecieved', 0));
   if (!pullable && !pickable) {
-    logs.push(`${new Date()} [${jobName}] 已经领取，跳过任务`);
+    logs.push(`[${jobName}] 已经领取，跳过任务`);
     return {logs};
   }
 
@@ -36,11 +36,11 @@ export default async () => {
     }
   });
   if (pickData.resultData.data.isRecieved !== 1) {
-    logs.push(`${new Date()} [${jobName}] 未知错误`);
+    logs.push(`[${jobName}] 未知错误`);
     return {logs};
   }
   const award = pickData.resultData.data.rewardAmount * 0.01;
-  logs.push(`${new Date()} [${jobName}] 获得${award}现金`);
+  logs.push(`[${jobName}] 获得${award}现金`);
   return {
     cash: award,
     logs

@@ -12,11 +12,11 @@ export default async () => {
   });
   const hasSigned = signData.signText === '已签到';
   if (hasSigned) {
-    logs.push(`${new Date()} [${jobName}] 已经领取，跳过任务`);
+    logs.push(`[${jobName}] 已经领取，跳过任务`);
     return {logs};
   }
   const award = parseInt(_.takeWhile(signData.awardList, { type: 2 })[0].text);
-  logs.push(`${new Date()} [${jobName}] 获得${award}京豆`);
+  logs.push(`[${jobName}] 获得${award}京豆`);
   return {
     jd: award,
     logs

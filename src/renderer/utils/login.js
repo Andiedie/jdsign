@@ -3,18 +3,20 @@ import url from 'url';
 const { BrowserWindow } = electron.remote;
 
 let loginWin;
+let isDone = false;
 function createLoginWindow (cookieNeeded, cb) {
   loginWin = new BrowserWindow({
     width: 400,
     height: 600,
     show: false,
-    backgroundColor: '#f8f8f8',
+    resizable: false,
     parent: electron.remote.getCurrentWindow(),
     modal: true
   });
   loginWin.loadURL('https://plogin.m.jd.com/user/login.action?appid=100');
-  loginWin.setMenu(null);
+  // loginWin.setMenu(null);
   loginWin.on('closed', () => {
+    if (!isDone) cb(new Error('Not login'));
     loginWin = null;
   });
   loginWin.once('ready-to-show', () => {
@@ -28,6 +30,7 @@ function createLoginWindow (cookieNeeded, cb) {
       loginWin.webContents.session.cookies.get({
         domain: '.jd.com'
       }, (error, cookies) => {
+        isDone = true;
         loginWin.close();
         if (error) return cb(error);
         const result = {};
@@ -37,7 +40,7 @@ function createLoginWindow (cookieNeeded, cb) {
           }
         }
         if (Object.keys(result).length !== cookieNeeded.length) {
-          return cb(new Error('Missing some cookies'));
+          return cb(new Error('无法获取部分Cookie'));
         }
         cb(null, result);
       });

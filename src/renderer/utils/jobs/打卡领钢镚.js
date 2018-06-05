@@ -11,12 +11,12 @@ export default async () => {
   });
   const hasSigned = _.values(_.pickBy(checkSignData.resultData, value => !isNaN(value.signInStatus)))[0].signInStatus === 1;
   if (hasSigned) {
-    logs.push(`${new Date()} [${jobName}] 已经打卡，跳过任务`);
+    logs.push(`[${jobName}] 已经打卡，跳过任务`);
     return {logs};
   }
   let { data: signData } = await ax.post('https://ms.jr.jd.com/gw/generic/base/h5/m/baseSignInEncryptNew');
   const award = Number(signData.resultData.thisTime) / 100;
-  logs.push(`${new Date()} [${jobName}] 获得${award}钢镚`);
+  logs.push(`[${jobName}] 获得${award}钢镚`);
   return {
     coin: award,
     logs

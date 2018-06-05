@@ -15,7 +15,7 @@ export default async () => {
   checkSignData = parseJsonp('Query', checkSignData);
   const hasSigned = _.takeWhile(checkSignData.sign, { num: day, level: day }).length === 1;
   if (hasSigned) {
-    logs.push(`${new Date()} [${jobName}] 已经签到，跳过任务`);
+    logs.push(`[${jobName}] 已经签到，跳过任务`);
     return {logs};
   }
   let { data: signData } = await ax.get('https://s.m.jd.com/activemcenter/muserwelfare/sign', {
@@ -31,19 +31,19 @@ export default async () => {
   });
   signData = parseJsonp('Sign', signData);
   if (signData.ret === 15) {
-    logs.push(`${new Date()} [${jobName}] 抢光了，稍后再试吧`);
+    logs.push(`[${jobName}] 抢光了，稍后再试吧`);
     return {logs};
   }
   if (signData.ret === 11) {
-    logs.push(`${new Date()} [${jobName}] 已经领取，跳过任务`);
+    logs.push(`[${jobName}] 已经领取，跳过任务`);
     return {logs};
   }
   if (signData.ret !== 0) {
-    logs.push(`${new Date()} [${jobName}] 未知错误`);
+    logs.push(`[${jobName}] 未知错误`);
     return {logs};
   }
   const award = 1;
-  logs.push(`${new Date()} [${jobName}] 获得${award}京豆`);
+  logs.push(`[${jobName}] 获得${award}京豆`);
   return {
     jd: award,
     logs

@@ -12,7 +12,7 @@ export default async () => {
   });
   const times = checkData.resultData.leftTimes;
   if (times === 0) {
-    logs.push(`${new Date()} [${jobName}] 机会用尽，跳过任务`);
+    logs.push(`[${jobName}] 机会用尽，跳过任务`);
     return {logs};
   }
   let total = 0;
@@ -25,7 +25,7 @@ export default async () => {
     if (pickData.resultData.data.rewardType === 2) {
       total += 0.01;
     }
-    logs.push(`${new Date()} [${jobName}] 获得${pickData.resultData.data.rewardName}`);
+    logs.push(`[${jobName}] 获得${pickData.resultData.data.rewardName}`);
   }
   return {
     cash: total,
