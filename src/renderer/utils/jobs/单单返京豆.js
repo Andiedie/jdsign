@@ -9,11 +9,16 @@ export default async () => {
     logs.push(`[${jobName}] 没有可以领取的京豆`);
     return {logs};
   }
-  const { data: signData } = await ax.post('https://ms.jr.jd.com/gw/generic/jrm/h5/m/acquireJingdou');
-  if (signData.resultData.code === -100) {
-    logs.push(`[${jobName}] 没有可以领取的京豆`);
-    return {logs};
-  }
+  const tradeNo = checkData.resultData.billList.map(v => v.tradeNo);
+  const payload = 'reqData=' + encodeURIComponent(JSON.stringify({
+    clientType: 'android',
+    list: tradeNo
+  }));
+  const { data: signData } = await ax.post('https://ms.jr.jd.com/gw/generic/jrm/h5/m/acquireJingdou', payload, {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+    }
+  });
   if (signData.resultData.code !== 1) {
     logs.push(`[${jobName}] 未知错误"${signData.resultData.message}"`);
     return {logs};
