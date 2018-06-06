@@ -15,6 +15,10 @@ export default async () => {
     logs.push(`[${jobName}] 已经领取，跳过任务`);
     return {logs};
   }
+  if (signData.noAwardTxt) {
+    logs.push(`[${jobName}] 签到成功，但没有奖励`);
+    return { logs };
+  }
   const award = parseInt(_.takeWhile(signData.awardList, { type: 2 })[0].text);
   logs.push(`[${jobName}] 获得${award}京豆`);
   return {
