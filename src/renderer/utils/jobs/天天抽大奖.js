@@ -25,7 +25,7 @@ export default async () => {
   }
   while (checkData.resultData.data.leftTimes > 0) {
     // share
-    if (checkData.resultData.data.curTimesType === 1) {
+    if (checkData.resultData.data.curTimesType !== 0) {
       const { data: shareData } = await ax.post(
         'https://ms.jr.jd.com/gw/generic/jrm/h5/m/saveActShareRecord',
         payload,
