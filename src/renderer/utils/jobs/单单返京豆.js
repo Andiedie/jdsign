@@ -23,7 +23,7 @@ export default async () => {
     logs.push(`[${jobName}] 未知错误"${signData.resultData.message}"`);
     return {logs};
   }
-  const award = Number(signData.resultData.orderSucessCount);
+  const award = Number(signData.resultData.currentjingdoucount);
   logs.push(`[${jobName}] 获得${award}京豆`);
   return {
     jd: award,
