@@ -6,7 +6,7 @@
     </div>
 
     <div class="button-wrapper">
-      <div :disabled="running" @click="sign" class="start">{{user.isLogin ? '开始签到' : '登录'}}</div>
+      <div :disabled="logining || running" @click="sign" class="start">{{user.isLogin ? '开始签到' : '登录'}}</div>
     </div>
 
     <div class="log-wrapper">
@@ -36,7 +36,8 @@ export default {
         isLogin: false
       },
       logs: [],
-      running: false
+      running: false,
+      logining: false
     };
   },
   methods: {
@@ -78,6 +79,7 @@ export default {
       };
     },
     async login () {
+      this.logining = true;
       let cookies;
       try {
         cookies = await new Promise((resolve, reject) => {
@@ -86,12 +88,14 @@ export default {
             else resolve(cookies);
           });
         });
+        console.log('cookies', this.$http.getCookie());
+        this.$http.setCookie(cookies);
+        await this.updateUserInfo();
       } catch (err) {
         throw err;
+      } finally {
+        this.logining = false;
       }
-      console.log('cookies', this.$http.getCookie());
-      this.$http.setCookie(cookies);
-      await this.updateUserInfo();
     },
     async sign () {
       if (this.running) return;
