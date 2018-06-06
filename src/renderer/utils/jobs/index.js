@@ -18,5 +18,6 @@ export default [
   require('./流量天天领'),
   require('./领京东红包'),
   require('./二手频道签到领京豆得京豆'),
-  require('./智能618签到领京豆得京豆')
+  require('./智能618签到领京豆得京豆'),
+  require('./趣花钱抽奖')
 ];
