@@ -24,8 +24,8 @@
 import login from '@/utils/login.js';
 import electron from 'electron';
 import jobs from '@/utils/jobs';
-const {remote} = electron;
-const {dialog, session, Menu, MenuItem, app} = remote;
+const { remote } = electron;
+const { dialog, session, Menu, MenuItem, app } = remote;
 
 export default {
   data () {
@@ -42,22 +42,28 @@ export default {
   methods: {
     createMenu () {
       const menu = new Menu();
-      menu.append(new MenuItem({
-        label: '退出登录',
-        click: () => {
-          this.logout();
-        }
-      }));
-      menu.append(new MenuItem({
-        label: '打开控制台',
-        click: () => {
-          remote.getCurrentWebContents().openDevTools();
-        }
-      }));
-      menu.append(new MenuItem({
-        label: `Version: ${app.getVersion()}`,
-        enabled: false
-      }));
+      menu.append(
+        new MenuItem({
+          label: '退出登录',
+          click: () => {
+            this.logout();
+          }
+        })
+      );
+      menu.append(
+        new MenuItem({
+          label: '打开控制台',
+          click: () => {
+            remote.getCurrentWebContents().openDevTools();
+          }
+        })
+      );
+      menu.append(
+        new MenuItem({
+          label: `Version: ${app.getVersion()}`,
+          enabled: false
+        })
+      );
       window.addEventListener('contextmenu', e => {
         e.preventDefault();
         menu.popup(remote.getCurrentWindow());
@@ -121,19 +127,26 @@ export default {
         this.logs = this.logs.concat(income.logs);
         await new Promise(resolve => setTimeout(resolve, 200));
       }
-      this.logs.push(`[总收入] ${total.jd}京豆 ${total.coin}钢镚 ${total.cash}现金 ${total.flow}M流量`);
+      this.logs.push(
+        `[总收入] ${total.jd}京豆 ${total.coin}钢镚 ${total.cash}现金 ${
+          total.flow
+        }M流量`
+      );
       this.running = false;
     },
     async updateUserInfo () {
-      let {data} = await this.$http.get('https://wq.jd.com/user/info/GetUserAllPinInfo', {
-        params: {
-          sceneval: 2,
-          callback: 'hook'
-        },
-        headers: {
-          Referer: 'https://wqs.jd.com/my/accountv2.shtml'
+      let { data } = await this.$http.get(
+        'https://wq.jd.com/user/info/GetUserAllPinInfo',
+        {
+          params: {
+            sceneval: 2,
+            callback: 'hook'
+          },
+          headers: {
+            Referer: 'https://wqs.jd.com/my/accountv2.shtml'
+          }
         }
-      });
+      );
       data = this.$http.parseJsonp('hook', data);
       if (data.errcode === 0) {
         this.user.avatar = data.userdata.renderJDDate['0'].msg.yunMidImageUrl;
@@ -212,7 +225,8 @@ export default {
   overflow-y: scroll;
 }
 .log {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
   margin-bottom: 5px;
 }
 .nothing {
