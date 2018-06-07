@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export default async () => {
   const jobName = '领京东红包';
+  console.log(jobName);
   const logs = [];
   const payload = 'reqData={"actCode":"79DE8B780DEB9ABACA42FA5011BF82731EAAEA097C14E5DA1FB9AB82C1EA9A7037C18F386CCC529E61F297B845EB50EF"}&source=app';
 

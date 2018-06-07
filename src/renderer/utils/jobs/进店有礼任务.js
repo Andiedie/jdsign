@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '进店有礼任务';
+  console.log(jobName);
   const logs = [];
   const { data: taskListData } = await ax.post('https://api.m.jd.com/client.action?functionId=queryTaskIndex&appid=ld');
   const taskList = taskListData.data.taskList.filter(value => value.taskStatus === 1);

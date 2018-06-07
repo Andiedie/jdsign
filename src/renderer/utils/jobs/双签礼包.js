@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export default async () => {
   const jobName = '双签礼包';
+  console.log(jobName);
   const logs = [];
   const { data: checkSignData } = await ax.post('https://ms.jr.jd.com/newjrmactivity/base/sign1111/init.action');
   const hasSigned = checkSignData.isGet;

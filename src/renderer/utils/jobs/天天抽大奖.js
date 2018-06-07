@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '天天抽大奖';
+  console.log(jobName);
   const logs = [];
   const payload =
     'reqData={"actCode":"D936B07274651F5C4EA67D9A61142F731E1F3505ADCDB6ED2177DDA10B44426155E0086F2112F4093DD18A508C0C452C"}&source=app';

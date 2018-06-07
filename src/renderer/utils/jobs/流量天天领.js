@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export default async () => {
   const jobName = '流量天天领';
+  console.log(jobName);
   const logs = [];
   const payload = 'reqData={"actCode":"CEF19FA9384EBB22757E0053F59B97EB61E3203C9DD7CECADA5792AF43221CB8C1FC507276E3D1DE2F5021087735F8A0"}&source=app';
 

@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '薅羊毛活动';
+  console.log(jobName);
   const logs = [];
   let { data: checkSignData } = await ax.get('https://home.jdpay.com/my/querySignHistory');
   const hasSigned = checkSignData.data.resBusiData.isFlag;

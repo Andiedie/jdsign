@@ -3,6 +3,7 @@ import jsonp from 'parse-jsonp';
 
 export default async () => {
   const jobName = '2018翻牌签到';
+  console.log(jobName);
   const logs = [];
   const sid = ax.getCookie().sid;
   let { data: checkData } = await ax.get('https://gpm.jd.com/signin/home', {

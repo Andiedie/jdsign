@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export default async () => {
   const jobName = '无线端签到领京豆';
+  console.log(jobName);
   const logs = [];
   const { data: checkSignData } = await ax.get('https://api.m.jd.com/client.action', {
     params: {

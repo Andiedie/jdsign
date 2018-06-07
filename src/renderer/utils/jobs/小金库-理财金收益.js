@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '小金库-理财金收益';
+  console.log(jobName);
   const logs = [];
   let { data: checkSignData } = await ax.get('https://ms.jr.jd.com/gw/generic/jrm/h5/m/enveloProgress');
   const hasSigned = checkSignData.resultData.code === '00';

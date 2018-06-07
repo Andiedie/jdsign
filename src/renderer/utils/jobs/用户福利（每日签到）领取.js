@@ -4,6 +4,7 @@ import parseJsonp from 'parse-jsonp';
 
 export default async () => {
   const jobName = '用户福利（每日签到）领取';
+  console.log(jobName);
   const logs = [];
   let day = new Date().getDay();
   day = day === 0 ? 7 : day;

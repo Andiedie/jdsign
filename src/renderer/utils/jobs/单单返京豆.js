@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '单单返京豆';
+  console.log(jobName);
   const logs = [];
   const { data: checkData } = await ax.post('https://ms.jr.jd.com/gw/generic/jrm/h5/m/accessJingdouInfo');
   const availableCount = checkData.resultData.ableDrawjingdou;

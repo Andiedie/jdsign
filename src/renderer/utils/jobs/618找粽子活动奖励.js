@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export default async () => {
   const jobName = '618找粽子活动奖励';
+  console.log(jobName);
   const logs = [];
   let total = 0;
   do {

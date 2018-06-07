@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '趣花钱抽奖';
+  console.log(jobName);
   const logs = [];
   let total = 0;
   // share

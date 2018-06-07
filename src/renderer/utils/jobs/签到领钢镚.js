@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '签到领钢镚';
+  console.log(jobName);
   const logs = [];
   const payload = encodeURI('reqData={"channelSource":"JRAPP"}');
   const { data: checkSignData } = await ax.post('https://ms.jr.jd.com/newjrmactivity/base/sign1111/init.action');

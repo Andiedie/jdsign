@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '流量加油站';
+  console.log(jobName);
   const logs = [];
   const { data: checkData } = await ax.get('https://api.m.jd.com/client.action', {
     params: {

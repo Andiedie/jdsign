@@ -2,6 +2,7 @@ import ax from '@/utils/ax.js';
 
 export default async () => {
   const jobName = '全局分享拉新活动';
+  console.log(jobName);
   const logs = [];
   let { data: signData } = await ax.post('https://ms.jr.jd.com/gw/generic/jrm/h5/m/giftGB');
   const hasSigned = signData.resultData.msg === '今日已领取过钢镚';

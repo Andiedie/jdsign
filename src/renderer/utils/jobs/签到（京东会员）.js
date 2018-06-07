@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export default async () => {
   const jobName = '签到（京东会员）';
+  console.log(jobName);
   const logs = [];
   const { data: checkSignData } = await ax.post('https://vip.m.jd.com/score/home.html');
   let hasSigned = true;

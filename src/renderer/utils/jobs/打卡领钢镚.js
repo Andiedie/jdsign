@@ -3,6 +3,7 @@ import _ from 'lodash';
 
 export default async () => {
   const jobName = '打卡领钢镚';
+  console.log(jobName);
   const logs = [];
   let { data: checkSignData } = await ax.post('https://ms.jr.jd.com/gw/generic/base/h5/m/baseGetMessByGroupTypeEncryptNew', 'reqData={"clientType":"outH5","userType":1176,"groupType":166}&source=jrm', {
     headers: {
