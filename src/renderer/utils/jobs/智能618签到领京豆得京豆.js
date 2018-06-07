@@ -20,11 +20,15 @@ export default async () => {
   });
   if (signData.signText === '已签到') {
     logs.push(`[${jobName}] 已经签到，跳过任务`);
-    return {logs};
+    return { logs };
+  }
+  if (signData.noAwardTxt) {
+    logs.push(`[${jobName}] 签到成功，但没有奖励`);
+    return { logs };
   }
   if (signData.signText !== '签到成功') {
     logs.push(`[${jobName}] 未知错误：${signData.signText}`);
-    return {logs};
+    return { logs };
   }
   const award = parseInt(_.takeWhile(signData.awardList, {type: 2})[0].text);
   logs.push(`[${jobName}] 获得${award}京豆`);

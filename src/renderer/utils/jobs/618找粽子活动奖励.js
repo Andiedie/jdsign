@@ -25,10 +25,10 @@ export default async () => {
     });
     const jdawards = _.takeWhile(checkData.data.findDump.awardPage.zddAwards, { awardName: '京豆' });
     if (jdawards.length) {
+      logs.push(`[${jobName}] 获得${jdawards[0].cnt}京豆`);
       total += jdawards[0].cnt;
     }
   } while (true);
-  logs.push(`[${jobName}] 获得${total}京豆`);
   return {
     jd: total,
     logs
