@@ -29,6 +29,7 @@ export default async () => {
       logs.push(`[${jobName}] 获得${jdawards[0].cnt}京豆`);
       total += jdawards[0].cnt;
     }
+    await new Promise(resolve => setTimeout(resolve, 200));
   } while (true);
   return {
     jd: total,
