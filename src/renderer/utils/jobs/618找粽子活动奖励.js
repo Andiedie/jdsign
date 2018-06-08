@@ -17,7 +17,10 @@ export default async () => {
       }
     });
     const successful = signData.data.msgCode === '0';
-    if (!successful) break;
+    if (!successful) {
+      logs.push(`[${jobName}] 机会用尽，跳过任务`);
+      break;
+    }
     const { data: checkData } = await ax.get('https://api.m.jd.com/client.action', {
       params: {
         functionId: 'queryBeanIndex',
