@@ -10,7 +10,7 @@ export default [
   require('./京东小金库现金红包'),
   require('./小金库-理财金收益'),
   require('./进店有礼任务'),
-  require('./618拍拍二手销售得京豆'),
+  // require('./618拍拍二手销售得京豆'),
   require('./2018翻牌签到'),
   require('./单单返京豆'),
   require('./天天抽大奖'),

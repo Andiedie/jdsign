@@ -1,5 +1,6 @@
 import ax from '@/utils/ax.js';
 import _ from 'lodash';
+// 活动结束
 // body
 export default async () => {
   const jobName = '618拍拍二手销售得京豆';

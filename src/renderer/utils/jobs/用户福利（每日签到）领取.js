@@ -15,7 +15,7 @@ export default async () => {
   });
   checkSignData = parseJsonp('Query', checkSignData);
   const hasSigned = _.takeWhile(checkSignData.sign, { num: day, level: day }).length === 1;
-  const activityName = checkSignData[0].active;
+  const activityName = checkSignData.dailydraw[0].active;
   if (hasSigned) {
     logs.push(`[${jobName}] 已经签到，跳过任务`);
     return {logs};
