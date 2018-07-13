@@ -15,6 +15,7 @@ export default async () => {
   });
   checkSignData = parseJsonp('Query', checkSignData);
   const hasSigned = _.takeWhile(checkSignData.sign, { num: day, level: day }).length === 1;
+  const activityName = checkSignData[0].active;
   if (hasSigned) {
     logs.push(`[${jobName}] 已经签到，跳过任务`);
     return {logs};
@@ -22,7 +23,7 @@ export default async () => {
   let { data: signData } = await ax.get('https://s.m.jd.com/activemcenter/muserwelfare/sign', {
     params: {
       num: day,
-      active: 'copy_Myonghufliqiandao',
+      active: activityName,
       level: day,
       g_ty: 'ls'
     },

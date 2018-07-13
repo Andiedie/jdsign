@@ -1,5 +1,5 @@
 import ax from '@/utils/ax.js';
-
+// 活动结束
 export default async () => {
   const jobName = '薅羊毛活动';
   console.log(jobName);

@@ -1,6 +1,6 @@
 import ax from '@/utils/ax.js';
 import _ from 'lodash';
-
+// 活动结束
 export default async () => {
   const jobName = '智能618签到领京豆得京豆';
   console.log(jobName);

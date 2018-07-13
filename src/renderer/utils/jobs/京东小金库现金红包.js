@@ -5,12 +5,11 @@ export default async () => {
   console.log(jobName);
   const logs = [];
   let { data: signData } = await ax.post('https://wyyl.jd.com/xjk/receiveReward');
-  const hasSigned = signData.message === '今天你已领取过了!';
-  if (hasSigned) {
-    logs.push(`[${jobName}] 已经领取，跳过任务`);
+  const award = Number(signData.message);
+  if (isNaN(award)) {
+    logs.push(`[${jobName}] ${signData.message}`);
     return {logs};
   }
-  const award = Number(signData.message);
   logs.push(`[${jobName}] 获得${award}现金`);
   return {
     cash: award,

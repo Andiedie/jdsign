@@ -4,7 +4,7 @@ export default [
   require('./签到领钢镚'),
   require('./双签礼包'),
   require('./用户福利（每日签到）领取'),
-  require('./薅羊毛活动'),
+  // require('./薅羊毛活动'),
   require('./打卡领钢镚'),
   require('./全局分享拉新活动'),
   require('./京东小金库现金红包'),
@@ -17,8 +17,8 @@ export default [
   require('./流量加油站'),
   require('./流量天天领'),
   require('./领京东红包'),
-  require('./二手频道签到领京豆得京豆'),
-  require('./智能618签到领京豆得京豆'),
-  require('./趣花钱抽奖'),
-  require('./618找粽子活动奖励')
+  require('./二手频道签到领京豆得京豆')
+  // require('./智能618签到领京豆得京豆'),
+  // require('./趣花钱抽奖'),
+  // require('./618找粽子活动奖励')
 ];

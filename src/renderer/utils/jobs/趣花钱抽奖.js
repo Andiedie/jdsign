@@ -1,5 +1,5 @@
 import ax from '@/utils/ax.js';
-
+// 活动结束
 export default async () => {
   const jobName = '趣花钱抽奖';
   console.log(jobName);

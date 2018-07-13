@@ -1,6 +1,6 @@
 import ax from '@/utils/ax.js';
 import _ from 'lodash';
-
+// 活动结束
 export default async () => {
   const jobName = '618找粽子活动奖励';
   console.log(jobName);
@@ -32,7 +32,7 @@ export default async () => {
       logs.push(`[${jobName}] 获得${jdawards[0].cnt}京豆`);
       total += jdawards[0].cnt;
     }
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise(resolve => setTimeout(resolve, 2000));
   } while (true);
   return {
     jd: total,

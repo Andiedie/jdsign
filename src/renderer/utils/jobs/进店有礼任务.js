@@ -18,6 +18,7 @@ export default async () => {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     });
+    await new Promise(resolve => setTimeout(resolve, 1000));
   }
   logs.push(`[${jobName}] 完成${taskIds.length}个任务，获得${award}京豆`);
   return {
