@@ -5,6 +5,10 @@ export default async () => {
   console.log(jobName);
   const logs = [];
   const { data: taskListData } = await ax.post('https://api.m.jd.com/client.action?functionId=queryTaskIndex&appid=ld');
+  if (!taskListData.data.taskList) {
+    logs.push(`[${jobName}] ${taskListData.data.taskErrorTips}`);
+    return {logs};
+  }
   const taskList = taskListData.data.taskList.filter(value => value.taskStatus === 1);
   const award = taskList.reduce((pre, cur) => pre + Number(cur.awardCount), 0);
   const taskIds = taskList.map(value => value.taskId);
